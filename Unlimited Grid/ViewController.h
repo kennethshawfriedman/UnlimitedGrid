@@ -1,5 +1,5 @@
 //
-//  StartVC.h
+//  ViewController.h
 //  Unlimited Grid
 //
 //  Created by Kenny Friedman on 7/14/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StartVC : UIViewController
+@interface ViewController : UIViewController
 
 @end

@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>61D28F52-24E8-4C28-AE0B-0B00749A92C1</string>
+	<string>CB53906E-5135-4415-859F-F30CDEDCBE2E</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Unlimited Grid</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,11 +14,11 @@
 		<string>https://github.com/kennethshawfriedman/UnlimitedGrid.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Unlimited Grid.xcodeproj/project.xcworkspace</string>
+	<string>Unlimited Grid/Unlimited Grid.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>78BE6EC3-403B-4AFC-83DF-54B5397D5814</key>
-		<string>../..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/kennethshawfriedman/UnlimitedGrid.git</string>
