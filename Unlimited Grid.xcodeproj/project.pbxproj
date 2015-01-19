@@ -17,6 +17,7 @@
 		B939EDB41A6C5F6800A93E9A /* GridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B939EDB31A6C5F6800A93E9A /* GridCell.m */; };
 		B9E815481A6CFD63008D9E44 /* GameOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E815471A6CFD63008D9E44 /* GameOptionsView.m */; };
 		B9E8154B1A6D0B19008D9E44 /* UGAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E8154A1A6D0B19008D9E44 /* UGAppearance.m */; };
+		B9E8154F1A6D20AC008D9E44 /* StartingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E8154E1A6D20AC008D9E44 /* StartingVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		B9E815471A6CFD63008D9E44 /* GameOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOptionsView.m; sourceTree = "<group>"; };
 		B9E815491A6D0B19008D9E44 /* UGAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UGAppearance.h; sourceTree = "<group>"; };
 		B9E8154A1A6D0B19008D9E44 /* UGAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UGAppearance.m; sourceTree = "<group>"; };
+		B9E8154D1A6D20AC008D9E44 /* StartingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartingVC.h; sourceTree = "<group>"; };
+		B9E8154E1A6D20AC008D9E44 /* StartingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartingVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,8 @@
 			children = (
 				B939ED901A6C5CD100A93E9A /* AppDelegate.h */,
 				B939ED911A6C5CD100A93E9A /* AppDelegate.m */,
+				B9E8154D1A6D20AC008D9E44 /* StartingVC.h */,
+				B9E8154E1A6D20AC008D9E44 /* StartingVC.m */,
 				B939ED931A6C5CD100A93E9A /* ViewController.h */,
 				B939ED941A6C5CD100A93E9A /* ViewController.m */,
 				B9E815491A6D0B19008D9E44 /* UGAppearance.h */,
@@ -248,6 +253,7 @@
 				B939ED8F1A6C5CD100A93E9A /* main.m in Sources */,
 				B939EDB41A6C5F6800A93E9A /* GridCell.m in Sources */,
 				B9E8154B1A6D0B19008D9E44 /* UGAppearance.m in Sources */,
+				B9E8154F1A6D20AC008D9E44 /* StartingVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

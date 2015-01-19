@@ -11,6 +11,7 @@
 @class GameOptionsView;
 @protocol GameOptionsDelegate <NSObject>
 	- (void) beginEraseProcess;
+	- (void) goBack;
 @end
 
 @interface GameOptionsView : UIView {

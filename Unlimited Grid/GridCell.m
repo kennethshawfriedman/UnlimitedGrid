@@ -60,5 +60,4 @@
 	return currentCellType;
 }
 
-
 @end

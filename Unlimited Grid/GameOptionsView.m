@@ -33,6 +33,7 @@ static NSString *DEFAULT_PLAYER_TEXT = @"Current Player: -";
 	moreButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 	[moreButton setTitle:EXPANDED_BTN_TITLE forState:UIControlStateNormal];
 	[[moreButton titleLabel] setFont:[UIFont fontWithName:[UGAppearance fontName] size:15]];
+	[moreButton setTintColor:[UGAppearance accentColor]];
 	[[moreButton titleLabel] setTextAlignment:NSTextAlignmentLeft];
 	[moreButton setFrame:CGRectMake(20, 8, 70, 44)];
 	[moreButton addTarget:self action:@selector(expand) forControlEvents:UIControlEventTouchUpInside];
@@ -56,6 +57,7 @@ static NSString *DEFAULT_PLAYER_TEXT = @"Current Player: -";
 		} completion: nil];
 	} else {
 		[self makeRestartButton];
+		[self makeBackButton];
 		[self setFrame:CGRectMake(0, screenHeight-60, screenWidth, screenHeight/2)];
 		[UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
 			[self setFrame:CGRectMake(0, screenHeight/2, screenWidth, screenHeight/2)];
@@ -64,6 +66,8 @@ static NSString *DEFAULT_PLAYER_TEXT = @"Current Player: -";
 	}
 	expanded = !expanded;
 }
+
+#pragma mark - Restart Button & Methods
 
 - (void) makeRestartButton {
 	UIButton *restartGameButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -78,6 +82,24 @@ static NSString *DEFAULT_PLAYER_TEXT = @"Current Player: -";
 - (void) restartGame {
 	[_delegate beginEraseProcess];
 }
+
+#pragma mark - Back Button & Methods
+
+- (void) makeBackButton {
+	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	[backButton setTitle:@"Close Game" forState:UIControlStateNormal];
+	[[backButton titleLabel] setFont: [UIFont fontWithName:[UGAppearance fontName] size:15]];
+	[backButton setTitleColor:[UGAppearance accentColor] forState:UIControlStateNormal];
+	[backButton setFrame:CGRectMake(20, 150, screenWidth-40, 44)];
+	[backButton addTarget:self action:@selector(closeGame) forControlEvents:UIControlEventTouchUpInside];
+	[self addSubview:backButton];
+}
+
+- (void) closeGame {
+	[_delegate goBack];
+}
+
+#pragma mark - Set Current Player
 
 - (void) setXAsCurrentPlayer {
 	[currentPlayerString replaceCharactersInRange:NSMakeRange(16, 1) withString:@"X"];

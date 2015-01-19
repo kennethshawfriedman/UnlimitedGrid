@@ -47,7 +47,6 @@ static const int NUM_CELL_PER_ROW = 40;
 	[self.view setBackgroundColor:[UGAppearance backgroundColor]];
 	
 	//2D Array of Cells
-	
 	for (int i=0; i<NUM_CELL_PER_ROW; i++) {
 		NSMutableArray *innerArray = [NSMutableArray new];
 		for (int j=0; j<NUM_CELL_PER_ROW; j++) {
@@ -59,13 +58,7 @@ static const int NUM_CELL_PER_ROW = 40;
 	}
 }
 
-- (void) erase {
-	for (NSMutableArray *mArray in arrayOfCells) {
-		for (GridCell *cell in mArray) {
-			[cell setCellAsEmpty];
-		}
-	}
-}
+#pragma Player Move & Winner Check
 
 - (void) cellTapped: (UITapGestureRecognizer *) tapRec {
 	int iVal = [tapRec locationInView:board].x/50;
@@ -103,44 +96,17 @@ static const int NUM_CELL_PER_ROW = 40;
 
 - (void) checkForWinWithX: (int) x andY: (int) y {
 	
-	int aboveCount = [self getAboveCountWithX:x andY: y];
-	int belowCount = [self getBelowCountWithX:x andY: y];
-	int vertical = aboveCount + belowCount;
-		
-	int leftCount = [self getLeftCountWithX:x andY: y];
-	int rightCount = [self getRightCountWithX:x andY: y];
-	int horizontal = leftCount + rightCount;
-	
-	int upperNorthEast = [self getUpperNorthEastCountWithX:x andY:y];
-	int lowerNorthEast = [self getLowerNorthEastCountWithX:x andY:y];
-	int northEast = upperNorthEast + lowerNorthEast;
-
-	int upperSouthEast = [self getUpperSouthEastCountWithX:x andY:y];
-	int lowerSouthEast = [self getLowerSouthEastCountWithX:x andY:y];
-	int southEast = upperSouthEast + lowerSouthEast;
+	int vertical = [self getAboveCountWithX:x andY: y] + [self getBelowCountWithX:x andY: y];
+	int horizontal = [self getLeftCountWithX:x andY: y] + [self getRightCountWithX:x andY: y];
+	int northEast = [self getUpperNorthEastCountWithX:x andY:y] + [self getLowerNorthEastCountWithX:x andY:y];
+	int southEast = [self getUpperSouthEastCountWithX:x andY:y] + [self getLowerSouthEastCountWithX:x andY:y];
 	
 	if (vertical >= 4 || horizontal >= 4 || northEast >= 4 || southEast >= 4) {
 		[self presentWinner];
 	}
 }
 
-- (void) presentWinner {
-	NSString *winningPlayer;
-	if (currentTurn==PLAYER_O) {
-		winningPlayer = @"Xs win!";
-	} else {
-		winningPlayer = @"Os win!";
-	}
-	
-	UIAlertView *newAlert = [[UIAlertView alloc] initWithTitle:@"Game Over" message:winningPlayer delegate:self cancelButtonTitle:nil otherButtonTitles: @"New Game", nil];
-	[newAlert show];
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) {     // and they clicked OK.
-		[self erase];
-	}
-}
+#pragma mark - Helper Check Methods
 
 - (int) getAboveCountWithX: (int) x andY: (int) y {
 	int aboveCount = 0;
@@ -229,16 +195,10 @@ static const int NUM_CELL_PER_ROW = 40;
 
 - (CELLTYPE) cellTypeForCellAt: (int) x and: (int) y {
 	if (x<0 || y<0 || x>=[arrayOfCells count] || y>= [[arrayOfCells objectAtIndex:x] count]) {
-		NSLog(@"OH NO SOMETHING WENT WRONG at (%d, %d)", x,y);
 		return CELL_EMPTY;
 	} else {
 		return [[[arrayOfCells objectAtIndex:x] objectAtIndex:y] getCellType];
 	}
-}
-
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
@@ -250,6 +210,55 @@ static const int NUM_CELL_PER_ROW = 40;
 
 - (void) beginEraseProcess {
 	
+	NSString *message = @"Please confirm that you want to clear the board and restart the game.";
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erase Game" message: message preferredStyle:UIAlertControllerStyleAlert];
+	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle: @"Cancel" style:UIAlertActionStyleCancel handler:nil];
+	UIAlertAction *eraseConfirmAction = [UIAlertAction actionWithTitle: @"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+		[self erase];
+	}];
+	[alert addAction:cancelAction];
+	[alert addAction:eraseConfirmAction];
+	[self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void) erase {
+	for (NSMutableArray *mArray in arrayOfCells) {
+		for (GridCell *cell in mArray) {
+			[cell setCellAsEmpty];
+		}
+	}
+}
+
+- (void) goBack {
+	[self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+#pragma mark - Other
+
+- (void) presentWinner {
+	NSString *winningPlayer;
+	if (currentTurn==PLAYER_O) {
+		winningPlayer = @"Xs win!";
+	} else {
+		winningPlayer = @"Os win!";
+	}
+	
+	UIAlertController *winAlert = [UIAlertController alertControllerWithTitle:@"Winner Winner" message:winningPlayer preferredStyle:UIAlertControllerStyleAlert];
+	UIAlertAction *newGame = [UIAlertAction actionWithTitle:@"Ok, New Game" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+		[self erase];
+	}];
+	[winAlert addAction:newGame];
+	[self presentViewController:winAlert animated:YES completion:nil];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
+		[self erase];
+	}
+}
+
+- (void)didReceiveMemoryWarning {
+	[super didReceiveMemoryWarning];
 }
 
 #pragma mark - For Testing Only
