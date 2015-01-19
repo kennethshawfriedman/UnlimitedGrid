@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-60)];
+	scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-80)];
 	[self.view addSubview:scroller];
 	
 	int NUM_CELL_PER_ROW = 40;
@@ -46,13 +46,11 @@
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellTapped:)];
 	[scroller addGestureRecognizer:tap];
 	
-	UIView *controller = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-60, self.view.frame.size.width, 60)];
+	controller = [[GameOptionsView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-60, self.view.frame.size.width, 60)];
 	[self.view addSubview: controller];
-	[controller setBackgroundColor:[UIColor grayColor]];
 	currentTurnLabel = [[UILabel alloc] initWithFrame: CGRectMake(self.view.frame.size.width-200, 8, 180, 44)];
 	[currentTurnLabel setTextAlignment:NSTextAlignmentRight];
 	[currentTurnLabel setText:@"Current Turn: X"];
-	[controller addSubview:currentTurnLabel];
 	currentTurn = PLAYER_X;
 	
 	UIButton *eraseButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -60,6 +58,14 @@
 	[eraseButton setTitle:@"Erase" forState:UIControlStateNormal];
 	[eraseButton addTarget:self action:@selector(erase) forControlEvents:UIControlEventTouchUpInside];
 	[controller addSubview:eraseButton];
+	
+	UIColor *grayBackgroundColor = [UIColor colorWithRed:.8 green:.823529412 blue:.847058824 alpha:1];
+	
+	UIView *statusBarBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+	[statusBarBackground setBackgroundColor:grayBackgroundColor];
+	[self.view addSubview: statusBarBackground];
+	
+	[self.view setBackgroundColor:grayBackgroundColor];
 }
 
 - (void) erase {
@@ -123,7 +129,25 @@
 	int southEast = upperSouthEast + lowerSouthEast;
 	
 	if (vertical >= 4 || horizontal >= 4 || northEast >= 4 || southEast >= 4) {
-		NSLog(@"That's it someone won!");
+		[self presentWinner];
+	}
+}
+
+- (void) presentWinner {
+	NSString *winningPlayer;
+	if (currentTurn==PLAYER_O) {
+		winningPlayer = @"Xs win!";
+	} else {
+		winningPlayer = @"Os win!";
+	}
+	
+	UIAlertView *newAlert = [[UIAlertView alloc] initWithTitle:@"Game Over" message:winningPlayer delegate:self cancelButtonTitle:nil otherButtonTitles: @"New Game", nil];
+	[newAlert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {     // and they clicked OK.
+		[self erase];
 	}
 }
 
@@ -213,7 +237,7 @@
 
 
 - (CELLTYPE) cellTypeForCellAt: (int) x and: (int) y {
-	if (x<0 || y<0 || [arrayOfCells objectAtIndex:x]==nil || [[arrayOfCells objectAtIndex:x] objectAtIndex:y]==nil) {
+	if (x<0 || y<0 || x>=[arrayOfCells count] || y>= [[arrayOfCells objectAtIndex:x] count]) {
 		NSLog(@"OH NO SOMETHING WENT WRONG at (%d, %d)", x,y);
 		return CELL_EMPTY;
 	} else {

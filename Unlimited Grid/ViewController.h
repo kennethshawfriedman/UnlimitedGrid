@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "GridCell.h"
+#import "GameOptionsView.h"
 
 typedef NS_ENUM(NSInteger, PLAYERTYPE) {
 	PLAYER_X,
 	PLAYER_O
 };
 
-@interface ViewController : UIViewController <UIScrollViewDelegate> {
+@interface ViewController : UIViewController <UIScrollViewDelegate, UIAlertViewDelegate> {
 	
+	GameOptionsView *controller;
 	PLAYERTYPE currentTurn;
 	UIScrollView *scroller;
 	UIView *board;
@@ -23,7 +25,6 @@ typedef NS_ENUM(NSInteger, PLAYERTYPE) {
 	UILabel *currentTurnLabel;
 	
 }
-
 
 @end
 
