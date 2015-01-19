@@ -2,16 +2,14 @@
 //  main.m
 //  Unlimited Grid
 //
-//  Created by Kenny Friedman on 7/14/14.
-//  Copyright (c) 2014 Kenneth Friedman. All rights reserved.
+//  Created by Kenneth Friedman on 1/18/15.
+//  Copyright (c) 2015 Kenneth Friedman. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
 #import "AppDelegate.h"
 
-int main(int argc, char * argv[])
-{
+int main(int argc, char * argv[]) {
 	@autoreleasepool {
 	    return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
 	}

@@ -2,14 +2,28 @@
 //  ViewController.h
 //  Unlimited Grid
 //
-//  Created by Kenny Friedman on 7/14/14.
-//  Copyright (c) 2014 Kenneth Friedman. All rights reserved.
+//  Created by Kenneth Friedman on 1/18/15.
+//  Copyright (c) 2015 Kenneth Friedman. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "GridCell.h"
 
-@interface ViewController : UIViewController
+typedef NS_ENUM(NSInteger, PLAYERTYPE) {
+	PLAYER_X,
+	PLAYER_O
+};
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@interface ViewController : UIViewController <UIScrollViewDelegate> {
+	
+	PLAYERTYPE currentTurn;
+	UIScrollView *scroller;
+	UIView *board;
+	NSMutableArray *arrayOfCells;
+	UILabel *currentTurnLabel;
+	
+}
+
 
 @end
+
