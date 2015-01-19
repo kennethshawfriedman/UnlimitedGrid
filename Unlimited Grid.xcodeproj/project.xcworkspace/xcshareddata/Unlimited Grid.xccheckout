@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>CB53906E-5135-4415-859F-F30CDEDCBE2E</string>
+	<string>0F274262-3952-4608-B6C2-6D79003552B6</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Unlimited Grid</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>78BE6EC3-403B-4AFC-83DF-54B5397D5814</key>
+		<key>BB8B5E09742A0830063A434B70E060C9AFBA5563</key>
 		<string>https://github.com/kennethshawfriedman/UnlimitedGrid.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Unlimited Grid/Unlimited Grid.xcodeproj/project.xcworkspace</string>
+	<string>Unlimited Grid.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>78BE6EC3-403B-4AFC-83DF-54B5397D5814</key>
-		<string>../../..</string>
+		<key>BB8B5E09742A0830063A434B70E060C9AFBA5563</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/kennethshawfriedman/UnlimitedGrid.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>78BE6EC3-403B-4AFC-83DF-54B5397D5814</string>
+	<string>BB8B5E09742A0830063A434B70E060C9AFBA5563</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>78BE6EC3-403B-4AFC-83DF-54B5397D5814</string>
+			<string>BB8B5E09742A0830063A434B70E060C9AFBA5563</string>
 			<key>IDESourceControlWCCName</key>
 			<string>UnlimitedGrid</string>
 		</dict>
