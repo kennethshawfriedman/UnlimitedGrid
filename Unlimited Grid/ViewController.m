@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 
+static const int NUM_CELL_PER_ROW = 40;
+
 @interface ViewController ()
 
 @end
@@ -17,21 +19,34 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-80)];
+	//Set up data
+	arrayOfCells = [NSMutableArray new];
+	float fullWidth = self.view.frame.size.width;
+	float fullHeight = self.view.frame.size.height;
+	
+	//UI Elements
+	scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 20, fullWidth, fullHeight-80)];
 	[self.view addSubview:scroller];
-	
-	int NUM_CELL_PER_ROW = 40;
-	
 	board = [[UIView alloc] initWithFrame:CGRectMake(0, 0, NUM_CELL_PER_ROW*50, NUM_CELL_PER_ROW*50)];
 	[scroller addSubview: board];
-	
 	[scroller setContentSize:CGSizeMake(NUM_CELL_PER_ROW*50, NUM_CELL_PER_ROW*50)];
-	[scroller scrollRectToVisible:CGRectMake(NUM_CELL_PER_ROW*10-self.view.frame.size.width/2, NUM_CELL_PER_ROW*10-self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height) animated:NO];
+	CGRect startingScrollArea = CGRectMake(NUM_CELL_PER_ROW*10-fullWidth/2, NUM_CELL_PER_ROW*10-fullHeight, fullWidth, fullHeight);
+	[scroller scrollRectToVisible: startingScrollArea animated:NO];
 	[scroller setDelegate:self];
 	[scroller setMinimumZoomScale: 0.5];
 	[scroller setMaximumZoomScale:2.0];
+	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellTapped:)];
+	[scroller addGestureRecognizer:tap];
+	controller = [[GameOptionsView alloc] initWithFrame:CGRectMake(0, fullHeight-60, fullWidth, 60)];
+	[controller setDelegate:self];
+	[self.view addSubview: controller];
+	[self setTurnForPlayerX];
+	UIView *statusBarBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullWidth, 20)];
+	[statusBarBackground setBackgroundColor:[UGAppearance backgroundColor]];
+	[self.view addSubview: statusBarBackground];
+	[self.view setBackgroundColor:[UGAppearance backgroundColor]];
 	
-	arrayOfCells = [NSMutableArray new];
+	//2D Array of Cells
 	
 	for (int i=0; i<NUM_CELL_PER_ROW; i++) {
 		NSMutableArray *innerArray = [NSMutableArray new];
@@ -42,30 +57,6 @@
 		}
 		[arrayOfCells addObject:innerArray];
 	}
-	
-	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellTapped:)];
-	[scroller addGestureRecognizer:tap];
-	
-	controller = [[GameOptionsView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-60, self.view.frame.size.width, 60)];
-	[self.view addSubview: controller];
-	currentTurnLabel = [[UILabel alloc] initWithFrame: CGRectMake(self.view.frame.size.width-200, 8, 180, 44)];
-	[currentTurnLabel setTextAlignment:NSTextAlignmentRight];
-	[currentTurnLabel setText:@"Current Turn: X"];
-	currentTurn = PLAYER_X;
-	
-	UIButton *eraseButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[eraseButton setFrame:CGRectMake(20, 9, 50, 44)];
-	[eraseButton setTitle:@"Erase" forState:UIControlStateNormal];
-	[eraseButton addTarget:self action:@selector(erase) forControlEvents:UIControlEventTouchUpInside];
-	[controller addSubview:eraseButton];
-	
-	UIColor *grayBackgroundColor = [UIColor colorWithRed:.8 green:.823529412 blue:.847058824 alpha:1];
-	
-	UIView *statusBarBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
-	[statusBarBackground setBackgroundColor:grayBackgroundColor];
-	[self.view addSubview: statusBarBackground];
-	
-	[self.view setBackgroundColor:grayBackgroundColor];
 }
 
 - (void) erase {
@@ -102,12 +93,12 @@
 
 - (void) setTurnForPlayerX {
 	currentTurn = PLAYER_X;
-	[currentTurnLabel setText:@"Curent Turn: X"];
+	[controller setXAsCurrentPlayer];
 }
 
 - (void) setTurnForPlayerO {
 	currentTurn = PLAYER_O;
-	[currentTurnLabel setText:@"Curent Turn: O"];
+	[controller setOAsCurrentPlayer];
 }
 
 - (void) checkForWinWithX: (int) x andY: (int) y {
@@ -254,6 +245,15 @@
 	return [scroller.subviews objectAtIndex:0];
 }
 
+
+#pragma mark - Game Options Delegate
+
+- (void) beginEraseProcess {
+	
+}
+
+#pragma mark - For Testing Only
+
 //Should be used for debugging only
 - (void) printBoard {
 	NSMutableString *string = [NSMutableString stringWithFormat: @"\n"];
@@ -265,6 +265,5 @@
 	}
 	NSLog(@"%@",string);
 }
-
 
 @end

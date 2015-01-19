@@ -7,7 +7,8 @@
 //
 
 #import "GridCell.h"
-#import <QuartzCore/QuartzCore.h>
+#import "UGAppearance.h"
+@import QuartzCore;
 
 @implementation GridCell
 
@@ -20,7 +21,7 @@
 	//Type Representation
 	label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
 	[label setTextAlignment:NSTextAlignmentCenter];
-	[label setFont:[UIFont fontWithName:@"Chalkduster" size:40]];
+	[label setFont:[UIFont fontWithName:[UGAppearance fontName] size:40]];
 	[self addSubview:label];
 	
 	//set cell as empty to begin with
@@ -33,20 +34,20 @@
 - (void) setUI {
 	[self setBackgroundColor:[UIColor whiteColor]];
 	[self.layer setBorderWidth:2.0];
-	UIColor *borderColor = [UIColor colorWithRed:0 green:.125490196 blue:.250980392 alpha:1];
+	UIColor *borderColor = [UGAppearance deepColor];
 	[self.layer setBorderColor: borderColor.CGColor];
 }
 
 - (void) setCellAsX {
 	currentCellType = CELL_X;
 	[label setText:@"X"];
-	[label setTextColor: [UIColor colorWithRed:1 green:.454901961 blue:.156862745 alpha:1]];
+	[label setTextColor: [UGAppearance accentColor]];
 }
 
 - (void) setCellAsO {
 	currentCellType = CELL_O;
 	[label setText:@"O"];
-	[label setTextColor: [UIColor colorWithRed:0 green:.274509804 blue:.552941176 alpha:1]];
+	[label setTextColor: [UGAppearance neutralColor]];
 }
 
 - (void) setCellAsEmpty {

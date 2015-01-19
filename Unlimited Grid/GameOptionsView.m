@@ -8,46 +8,87 @@
 
 #import "GameOptionsView.h"
 #import "ViewController.h"
+#import "UGAppearance.h"
+
+static NSString *EXPANDED_BTN_TITLE = @"Options";
+static NSString *COLLAPSED_BTN_TITLE = @"Close";
+static NSString *DEFAULT_PLAYER_TEXT = @"Current Player: -";
 
 @implementation GameOptionsView
 
 - (id) initWithFrame:(CGRect)frame {
 	self = [super initWithFrame:frame];
 	
-	[self setBackgroundColor:[UIColor colorWithRed:.8 green:.823529412 blue:.847058824 alpha:1]];
-	
-	UITapGestureRecognizer *tapToExpand = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(expand)];
-	[self addGestureRecognizer:tapToExpand];
+	//Set Data
 	expanded = NO;
+	CGRect screenRect = [[UIScreen mainScreen] bounds];
+	screenWidth = screenRect.size.width;
+	screenHeight = screenRect.size.height;
+	[self setBackgroundColor:[UGAppearance backgroundColor]];
+	currentPlayerString = [[NSMutableAttributedString alloc] initWithString: DEFAULT_PLAYER_TEXT];
+	[currentPlayerString addAttribute:NSForegroundColorAttributeName value:[UGAppearance deepColor] range:NSMakeRange(0, 16)];
+	[currentPlayerString addAttribute:NSForegroundColorAttributeName value:[UGAppearance backgroundColor] range:NSMakeRange(16, 1)];
+	
+	//Start UI Elements
+	moreButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	[moreButton setTitle:EXPANDED_BTN_TITLE forState:UIControlStateNormal];
+	[[moreButton titleLabel] setFont:[UIFont fontWithName:[UGAppearance fontName] size:15]];
+	[[moreButton titleLabel] setTextAlignment:NSTextAlignmentLeft];
+	[moreButton setFrame:CGRectMake(20, 8, 70, 44)];
+	[moreButton addTarget:self action:@selector(expand) forControlEvents:UIControlEventTouchUpInside];
+	[self addSubview:moreButton];
+	
+	currentPlayerLabel = [[UILabel alloc] initWithFrame:CGRectMake(screenWidth-170, 8, 150, 44)];
+	[currentPlayerLabel setAttributedText: currentPlayerString];
+	[currentPlayerLabel setFont:[UIFont fontWithName:[UGAppearance fontName] size:15]];
+	[self addSubview:currentPlayerLabel];
 	
 	return self;
 }
 
 //animate up if not expanded, animate down if expanded
 - (void) expand {
-	CGRect screenRect = [[UIScreen mainScreen] bounds];
-	CGFloat screenWidth = screenRect.size.width;
-	CGFloat screenHeight = screenRect.size.height;
 	
 	if (expanded) {
 		[UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
 			[self setFrame:CGRectMake(0, screenHeight-60, screenWidth, 60)];
+			[moreButton setTitle: EXPANDED_BTN_TITLE forState:UIControlStateNormal];
 		} completion: nil];
 	} else {
+		[self makeRestartButton];
 		[self setFrame:CGRectMake(0, screenHeight-60, screenWidth, screenHeight/2)];
 		[UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
 			[self setFrame:CGRectMake(0, screenHeight/2, screenWidth, screenHeight/2)];
+			[moreButton setTitle: COLLAPSED_BTN_TITLE forState:UIControlStateNormal];
 		}completion: nil];
 	}
 	expanded = !expanded;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void) makeRestartButton {
+	UIButton *restartGameButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	[restartGameButton setTitle:@"Restart Game" forState:UIControlStateNormal];
+	[[restartGameButton titleLabel] setFont: [UIFont fontWithName:[UGAppearance fontName] size:15]];
+	[restartGameButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+	[restartGameButton setFrame:CGRectMake(20, 100, screenWidth-40, 44)];
+	[restartGameButton addTarget:self action:@selector(restartGame) forControlEvents:UIControlEventTouchUpInside];
+	[self addSubview:restartGameButton];
 }
-*/
+
+- (void) restartGame {
+	[_delegate beginEraseProcess];
+}
+
+- (void) setXAsCurrentPlayer {
+	[currentPlayerString replaceCharactersInRange:NSMakeRange(16, 1) withString:@"X"];
+	[currentPlayerString addAttribute:NSForegroundColorAttributeName value:[UGAppearance accentColor] range:NSMakeRange(16, 1)];
+	[currentPlayerLabel setAttributedText: currentPlayerString];
+}
+
+- (void) setOAsCurrentPlayer {
+	[currentPlayerString replaceCharactersInRange:NSMakeRange(16, 1) withString:@"O"];
+	[currentPlayerString addAttribute:NSForegroundColorAttributeName value:[UGAppearance neutralColor] range:NSMakeRange(16, 1)];
+	[currentPlayerLabel setAttributedText: currentPlayerString];
+}
 
 @end

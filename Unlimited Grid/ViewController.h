@@ -9,20 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "GridCell.h"
 #import "GameOptionsView.h"
+#import "UGAppearance.h"
 
 typedef NS_ENUM(NSInteger, PLAYERTYPE) {
 	PLAYER_X,
 	PLAYER_O
 };
 
-@interface ViewController : UIViewController <UIScrollViewDelegate, UIAlertViewDelegate> {
+@interface ViewController : UIViewController <UIScrollViewDelegate, UIAlertViewDelegate, GameOptionsDelegate> {
 	
 	GameOptionsView *controller;
 	PLAYERTYPE currentTurn;
 	UIScrollView *scroller;
 	UIView *board;
 	NSMutableArray *arrayOfCells;
-	UILabel *currentTurnLabel;
 	
 }
 

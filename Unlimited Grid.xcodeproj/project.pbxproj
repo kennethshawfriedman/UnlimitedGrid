@@ -16,6 +16,7 @@
 		B939EDA91A6C5CD100A93E9A /* Unlimited_GridTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B939EDA81A6C5CD100A93E9A /* Unlimited_GridTests.m */; };
 		B939EDB41A6C5F6800A93E9A /* GridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B939EDB31A6C5F6800A93E9A /* GridCell.m */; };
 		B9E815481A6CFD63008D9E44 /* GameOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E815471A6CFD63008D9E44 /* GameOptionsView.m */; };
+		B9E8154B1A6D0B19008D9E44 /* UGAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E8154A1A6D0B19008D9E44 /* UGAppearance.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,8 @@
 		B939EDB31A6C5F6800A93E9A /* GridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridCell.m; sourceTree = "<group>"; };
 		B9E815461A6CFD63008D9E44 /* GameOptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOptionsView.h; sourceTree = "<group>"; };
 		B9E815471A6CFD63008D9E44 /* GameOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOptionsView.m; sourceTree = "<group>"; };
+		B9E815491A6D0B19008D9E44 /* UGAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UGAppearance.h; sourceTree = "<group>"; };
+		B9E8154A1A6D0B19008D9E44 /* UGAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UGAppearance.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,10 +94,9 @@
 				B939ED911A6C5CD100A93E9A /* AppDelegate.m */,
 				B939ED931A6C5CD100A93E9A /* ViewController.h */,
 				B939ED941A6C5CD100A93E9A /* ViewController.m */,
-				B939EDB21A6C5F6800A93E9A /* GridCell.h */,
-				B939EDB31A6C5F6800A93E9A /* GridCell.m */,
-				B9E815461A6CFD63008D9E44 /* GameOptionsView.h */,
-				B9E815471A6CFD63008D9E44 /* GameOptionsView.m */,
+				B9E815491A6D0B19008D9E44 /* UGAppearance.h */,
+				B9E8154A1A6D0B19008D9E44 /* UGAppearance.m */,
+				B9E8154C1A6D1576008D9E44 /* Additional Views */,
 				B939ED961A6C5CD100A93E9A /* Main.storyboard */,
 				B939ED991A6C5CD100A93E9A /* Images.xcassets */,
 				B939ED9B1A6C5CD100A93E9A /* LaunchScreen.xib */,
@@ -127,6 +129,17 @@
 				B939EDA71A6C5CD100A93E9A /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B9E8154C1A6D1576008D9E44 /* Additional Views */ = {
+			isa = PBXGroup;
+			children = (
+				B939EDB21A6C5F6800A93E9A /* GridCell.h */,
+				B939EDB31A6C5F6800A93E9A /* GridCell.m */,
+				B9E815461A6CFD63008D9E44 /* GameOptionsView.h */,
+				B9E815471A6CFD63008D9E44 /* GameOptionsView.m */,
+			);
+			name = "Additional Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +247,7 @@
 				B939ED921A6C5CD100A93E9A /* AppDelegate.m in Sources */,
 				B939ED8F1A6C5CD100A93E9A /* main.m in Sources */,
 				B939EDB41A6C5F6800A93E9A /* GridCell.m in Sources */,
+				B9E8154B1A6D0B19008D9E44 /* UGAppearance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
