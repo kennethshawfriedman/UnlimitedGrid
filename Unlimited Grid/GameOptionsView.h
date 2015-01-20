@@ -16,7 +16,6 @@
 
 @interface GameOptionsView : UIView {
 	
-
 	//UI Elements
 	UIButton *moreButton;
 	UILabel *currentPlayerLabel;
